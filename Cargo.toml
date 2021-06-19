@@ -1,0 +1,11 @@
+[package]
+name = "cjemu"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+# Execution environment
+cjemu-runtime = { path = "./cjemu-runtime" }
+
+# GUI library
+fltk = { git = "https://github.com/fltk-rs/fltk-rs", features = ["fltk-bundled"] }
