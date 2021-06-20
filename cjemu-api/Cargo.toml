@@ -1,7 +1,6 @@
 [package]
-name = "cjemu-runtime"
+name = "cjemu-api"
 version = "0.1.0"
 edition = "2018"
 
 [dependencies]
-cjemu-api = { path = "../cjemu-api" }

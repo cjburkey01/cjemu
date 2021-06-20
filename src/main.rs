@@ -7,6 +7,10 @@ const FONT_DIR_REL: &str = "font";
 // Font location relative to the `cjemu` font directory
 const FONT_REL: &str = "main_font.ttf";
 
+mod emu;
+
+use crate::emu::EmulationHandler;
+use cjemu_runtime::CJEmuVirtualMachine;
 use directories::UserDirs;
 use fltk::app::App;
 use fltk::group::PackType;
@@ -78,6 +82,11 @@ fn main() {
     // Show the window and start the app
     cjemu.window.expect("failed to load window").show();
     println!("displayed window");
+
+    // 50/50 split for rom/ram size (right now)
+    let virtual_machine = CJEmuVirtualMachine::new(2 << 15, 2 << 15);
+    let emulation_handler = EmulationHandler::new(virtual_machine);
+    println!("initialized virtual machine");
 
     // Start the event loop, blocking execution in this thread until the app
     // exits

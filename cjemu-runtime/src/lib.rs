@@ -1,7 +1,9 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+mod ram;
+mod rom;
+mod virtual_machine;
+
+pub use cjemu_api;
+
+pub use ram::*;
+pub use rom::*;
+pub use virtual_machine::*;
