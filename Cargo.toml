@@ -7,5 +7,8 @@ edition = "2018"
 # Execution environment
 cjemu-runtime = { path = "./cjemu-runtime" }
 
+# Getting directories like the home directory
+directories = "3.0.2"
+
 # GUI library
 fltk = { git = "https://github.com/fltk-rs/fltk-rs", features = ["fltk-bundled"] }
