@@ -1,7 +1,7 @@
 # Rust
-Cargo.lock
-/target
+**/Cargo.lock
+**/target
 
 # IDEA
-/.idea
+**/.idea
 **.iml
