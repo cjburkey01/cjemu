@@ -2,8 +2,9 @@ use cjemu_api::{Alu, AluOutputs};
 
 pub struct CJEmuAlu {}
 
-impl Alu<u16> for CJEmuAlu {
-    fn add16(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+#[allow(unused_variables)]
+impl Alu for CJEmuAlu {
+    fn add16(&mut self, a: u16, b: u16) -> AluOutputs {
         let (value, overflow) = match a.checked_add(b) {
             Some(val) => (val, false),
             // Wrap back around in the event of an overflow
@@ -20,75 +21,75 @@ impl Alu<u16> for CJEmuAlu {
         }
     }
 
-    fn add16_carry(&mut self, a: u16, b: u16, carry: bool) -> AluOutputs<u16> {
+    fn add16_carry(&mut self, a: u16, b: u16, carry: bool) -> AluOutputs {
         todo!()
     }
 
-    fn sub16(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn sub16(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn sub16_borrow(&mut self, a: u16, b: u16, borrow: bool) -> AluOutputs<u16> {
+    fn sub16_borrow(&mut self, a: u16, b: u16, borrow: bool) -> AluOutputs {
         todo!()
     }
 
-    fn neg16(&mut self, a: u16) -> AluOutputs<u16> {
+    fn neg16(&mut self, a: u16) -> AluOutputs {
         todo!()
     }
 
-    fn inc16(&mut self, a: u16) -> AluOutputs<u16> {
+    fn inc16(&mut self, a: u16) -> AluOutputs {
         todo!()
     }
 
-    fn pass16(&mut self, a: u16) -> AluOutputs<u16> {
+    fn pass16(&mut self, a: u16) -> AluOutputs {
         todo!()
     }
 
-    fn and16(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn and16(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn or16(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn or16(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn xor16(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn xor16(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn complement(&mut self, a: u16) -> AluOutputs<u16> {
+    fn complement(&mut self, a: u16) -> AluOutputs {
         todo!()
     }
 
-    fn shift16l(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn shift16l(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn shift16r(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn shift16r(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn ushift16l(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn ushift16l(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn ushift16r(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn ushift16r(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn rot16l(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn rot16l(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn rot16r(&mut self, a: u16, b: u16) -> AluOutputs<u16> {
+    fn rot16r(&mut self, a: u16, b: u16) -> AluOutputs {
         todo!()
     }
 
-    fn rot16l_carry(&mut self, a: u16, b: u16, carry: bool) -> AluOutputs<u16> {
+    fn rot16l_carry(&mut self, a: u16, b: u16, carry: bool) -> AluOutputs {
         todo!()
     }
 
-    fn rot16r_carry(&mut self, a: u16, b: u16, carry: bool) -> AluOutputs<u16> {
+    fn rot16r_carry(&mut self, a: u16, b: u16, carry: bool) -> AluOutputs {
         todo!()
     }
 }

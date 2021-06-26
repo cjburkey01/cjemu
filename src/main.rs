@@ -10,6 +10,7 @@ const FONT_REL: &str = "main_font.ttf";
 mod emu;
 
 use crate::emu::EmulationHandler;
+use cjemu_runtime::cjemu_api::Opcode;
 use cjemu_runtime::CJEmuVirtualMachine;
 use directories::UserDirs;
 use fltk::app::App;
@@ -34,7 +35,6 @@ struct CJEmu {
 
 #[derive(Debug)]
 struct CJEmuFiles {
-    user_dirs: UserDirs,
     home_dir: PathBuf,
     cjemu_dir: PathBuf,
     extracted_font_path: PathBuf,
@@ -85,11 +85,20 @@ fn main() {
 
     // 50/50 split for rom/ram size (right now)
     let virtual_machine = CJEmuVirtualMachine::new(2 << 15, 2 << 15);
-    let emulation_handler = EmulationHandler::new(virtual_machine);
+    let _emulation_handler = EmulationHandler::new(virtual_machine);
     println!("initialized virtual machine");
 
-    // Start the event loop, blocking execution in this thread until the app
-    // exits
+    let _example_program: Vec<u8> = vec![
+        Opcode::LdA8 as u8,
+        15u8,
+        Opcode::LdB8 as u8,
+        32u8,
+        Opcode::Add as u8,
+        // 47 should be found in the `A` register and the ALU outputs
+    ];
+
+    // Start the event loop, blocking execution in the main thread until the
+    // app exits
     app.run().unwrap();
 
     println!("exiting");
@@ -114,7 +123,6 @@ fn load_files() -> CJEmuFiles {
 
     // Wrap the files into a neat little struct
     CJEmuFiles {
-        user_dirs,
         home_dir,
         cjemu_dir,
         extracted_font_path,
@@ -130,25 +138,27 @@ fn load_font(app: &app::App, default_font: &[u8], font_file_loc: &Path) -> Font 
                 "font not found at {:?}, extracting the default packaged font (FiraCode)",
                 font_file_loc
             );
-            {
-                {
-                    let mut font_path = PathBuf::from(font_file_loc);
-                    // Remove file name, leaving only the directory
-                    font_path.pop();
-                    std::fs::create_dir_all(&font_path).unwrap_or_else(|_| {
-                        panic!("failed to create font directory at {:?}", font_path)
-                    });
-                }
 
-                let mut output_file = File::with_options()
-                    .write(true)
-                    .create(true)
-                    .open(font_file_loc)
-                    .unwrap_or_else(|_| panic!("failed to create file at {:?}", font_file_loc));
-                output_file
-                    .write_all(default_font)
-                    .unwrap_or_else(|_| panic!("failed to write font file at {:?}", font_file_loc));
+            // Make sure the output directory for the font file exists
+            {
+                let mut font_path = PathBuf::from(font_file_loc);
+                // Remove file name, leaving only the directory
+                font_path.pop();
+                std::fs::create_dir_all(&font_path).unwrap_or_else(|_| {
+                    panic!("failed to create font directory at {:?}", font_path)
+                });
             }
+
+            // Write the font file
+            let mut output_file = File::with_options()
+                .write(true)
+                .create(true)
+                .open(font_file_loc)
+                .unwrap_or_else(|_| panic!("failed to create file at {:?}", font_file_loc));
+            output_file
+                .write_all(default_font)
+                .unwrap_or_else(|_| panic!("failed to write font file at {:?}", font_file_loc));
+
             println!("extracted font");
         }
 

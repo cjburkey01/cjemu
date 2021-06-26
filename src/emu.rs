@@ -6,6 +6,7 @@ use std::thread::JoinHandle;
 use std::time::{Duration, SystemTime};
 
 #[derive(Copy, Clone)]
+#[allow(dead_code)]
 enum EmulationEvent {
     Exit,
     Tick,
@@ -24,6 +25,7 @@ pub struct EmulationHandler {
     has_exit: bool,
 }
 
+#[allow(dead_code)]
 impl EmulationHandler {
     pub fn new(virtual_machine: CJEmuVirtualMachine) -> Self {
         let (event_sender, event_receiver) = mpsc::channel();
